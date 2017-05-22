@@ -1,0 +1,20 @@
+Sportello CUP del regno di Bari
+
+Il sistema informativo sanitario del regno di Bari, si è evoluto a tal punto che ora permette ai suoi cittadini di prenotare una o più prestazioni del suo SSN  via internet.
+Il cittadino del regno di Bari accede allo sportello del Cup per la prima volta ed effettua la registrazione.
+La registrazione può avvenire più velocemente se il cittadino ha un profilo facebook o Google+ o altri (capiamo cosa possiamo agganciare)
+Il cittadino registrato ha la possibilità di:
+ vedere il proprio profilo con i dati anagrafici
+ vedere l'elenco delle prestazioni che lo riguardano
+ prenotare una prestazione
+ cancellare una prestazione
+ 
+ Le prestazioni, possono essere svolte presso una delle strutture del SSN del regno di Bari 
+ 
+ La struttura può offrire un certo range di tipologia di prestazione , e ogni  tipologia di prestaione viene eseguita in una specifica stanza.
+ Per ogni stanza, ci sarà una lista giornaliera di prestaazioni prenotate.
+ 
+ In ogni struttura, c'è un elenco di medici con specializzazione e infermieri che possono effettuare le prestazioni.
+ 
+
+
