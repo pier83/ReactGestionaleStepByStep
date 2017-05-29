@@ -4,6 +4,7 @@ import it.germesoft.web_service.dto.request.SetUtenteRequest;
 import it.germesoft.web_service.dto.response.UtentiResponse;
 import it.germesoft.web_service.dto.response.error.GestioneErrori;
 import it.germesoft.web_service.model.TipologicaRuoli;
+import it.germesoft.web_service.model.TipologicaStatoUtente;
 import it.germesoft.web_service.model.UserRolesWs;
 import it.germesoft.web_service.model.Utenti;
 import it.germesoft.web_service.service.TipologicaRuoliService;
@@ -37,10 +38,9 @@ public class UtentiBusinessLogic {
 				utentiResponse.setNomeRuolo(tipologicaRuoli.getNome());
 				utentiResponse.setIdRuolo(tipologicaRuoli.getId());
 				
-				//TODO: fare lo stato service
-//				utentiResponse.setIdStatoUtente(idStatoUtente);
-//				utentiResponse.setDescrizioneStato(descrizioneStato);
-				
+				TipologicaStatoUtente tipologicaStatoUtente = utenti.getTipologicaStatoUtente();
+				utentiResponse.setIdStatoUtente(tipologicaStatoUtente.getId());
+				utentiResponse.setDescrizioneStato(tipologicaStatoUtente.getDescrizione());
 				
 				utentiResponse.setEsitoInserimento("");
 				utentiResponse.setNome(utenti.getNome());

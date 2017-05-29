@@ -1,11 +1,10 @@
-package it.germesoft.web_service.dao;
+package it.germesoft.web_service.service;
 
 import it.germesoft.web_service.model.TipologicaStatoUtente;
 
 import java.util.List;
 
-
-public interface TipologicaStatoUtenteDao {
+public interface TipologicaStatoUtenteService {
 
 	void saveTipologicaStatoUtente(TipologicaStatoUtente tipologicaStatoUtente);
 	
@@ -19,5 +18,4 @@ public interface TipologicaStatoUtenteDao {
 	
 	void updateTipologicaStatoUtente(TipologicaStatoUtente tipologicaStatoUtente);
 	
-	List<TipologicaStatoUtente> likeByNome(String nome);
 }

@@ -10,6 +10,7 @@ import it.germesoft.web_service.model.UserRolesWs;
 import it.germesoft.web_service.service.AuditWsService;
 import it.germesoft.web_service.service.ListaMovimentiService;
 import it.germesoft.web_service.service.TipologicaRuoliService;
+import it.germesoft.web_service.service.TipologicaStatoUtenteService;
 import it.germesoft.web_service.service.UserRolesWsService;
 import it.germesoft.web_service.service.UtentiService;
 import it.germesoft.web_service.utilities.Utilities;
@@ -45,6 +46,9 @@ public class MainController {
 	TipologicaRuoliService tipologicaRuoliService;
 	
 	@Autowired
+	TipologicaStatoUtenteService tipologicaStatoUtenteService;
+	
+	@Autowired
 	UserRolesWsService userRolesWsService;
 	
 	@Autowired
@@ -60,7 +64,8 @@ public class MainController {
 
 			idAudit = auditWsService.inizializzaAudit("getUtentiByNomeGet", RestURIConstants.URL_GET_UTENTE_BY_NOME_GET, "GET", richiestaJson);
 			
-			Map<String, Object> map = UtentiBusinessLogic.eseguiBusinessLogicGetUtentiByNome(utentiService, tipologicaRuoliService, userRolesWsService,nome);
+			Map<String, Object> map = UtentiBusinessLogic.eseguiBusinessLogicGetUtentiByNome(utentiService, tipologicaRuoliService, userRolesWsService,
+					 nome);
 			
 			result.setMap(map);
 			
