@@ -63,7 +63,7 @@
 	  <authentication-provider>
 		<jdbc-user-service data-source-ref="dataSource"
 		  users-by-username-query=
-		    "SELECT utenti.nome, AES_DECRYPT(utenti.password, SHA1('Germe')) as password, utenti.id_stato_utente FROM utenti WHERE utenti.nome = ?"
+		    "SELECT utenti.nome, utenti.password as password, utenti.id_stato_utente FROM utenti WHERE utenti.nome = ?"
 		  authorities-by-username-query=
 		    "select username, role from user_roles_ws where username = ?  " />
 	  </authentication-provider>
