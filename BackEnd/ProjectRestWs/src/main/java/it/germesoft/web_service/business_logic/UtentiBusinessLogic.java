@@ -80,27 +80,34 @@ public class UtentiBusinessLogic {
 	
 	
 	public static Map<String, Object> eseguiBusinessLogicaSetUtente(UtentiService utentiService,TipologicaRuoliService tipologicaRuoliService, SetUtenteRequest request) throws Exception {
-		
-		Long idUser = utentiService.saveUtenti(request.getUsername(), request.getPassword(), request.getIdRuolo(), request.getIdStato(), request.getSaldoIniziale());
-		
 		Map<String, Object>  map = Maps.newHashMap();
 		UtentiResponse response = new UtentiResponse();
-		Utenti user = utentiService.findById(idUser);
-		if(user != null){
-			response.setNome(user.getNome());
-			response.setPassword(user.getPassword());
-			response.setSaldoIniziale(user.getSaldoIniziale());
-			TipologicaRuoli ruolo = tipologicaRuoliService.findById(request.getIdRuolo());
-			response.setIdRuolo(request.getIdRuolo());
-			response.setNomeRuolo(ruolo.getNome());
-			response.setDescrizioneRuolo(ruolo.getDescrizione());
-			response.setIdStatoUtente(user.getTipologicaStatoUtente().getId());
-			response.setDescrizioneStato(user.getTipologicaStatoUtente().getDescrizione());
-			response.setId(user.getId());
-			response.setEsitoInserimento("Utente "+user.getNome()+" inserito correttamente.");
+		
+		List<Utenti> listaUtentiTrovatiByNome = utentiService.findUtentiByNome(request.getUsername());
+		
+		if(listaUtentiTrovatiByNome.size() == 0){
+			Long idUser = utentiService.saveUtenti(request.getUsername(), request.getPassword(), request.getIdRuolo(), request.getIdStato(), request.getSaldoIniziale());
+			
+			Utenti user = utentiService.findById(idUser);
+			if(user != null){
+				response.setNome(user.getNome());
+				response.setPassword(user.getPassword());
+				response.setSaldoIniziale(user.getSaldoIniziale());
+				TipologicaRuoli ruolo = tipologicaRuoliService.findById(request.getIdRuolo());
+				response.setIdRuolo(request.getIdRuolo());
+				response.setNomeRuolo(ruolo.getNome());
+				response.setDescrizioneRuolo(ruolo.getDescrizione());
+				response.setIdStatoUtente(user.getTipologicaStatoUtente().getId());
+				response.setDescrizioneStato(user.getTipologicaStatoUtente().getDescrizione());
+				response.setId(user.getId());
+				response.setEsitoInserimento("Utente "+user.getNome()+" inserito correttamente.");
+			}
+			else{
+				GestioneErrori.erroreNoDataUtenti(map);
+			}
 		}
 		else{
-			GestioneErrori.erroreNoDataUtenti(map);
+			response.setEsitoInserimento("Utente gia' presente in anagrafica");
 		}
 		
 		map.put("response", response);
