@@ -5,11 +5,37 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="utenti")
 public class Utenti {
+	
+
+
+	@Id
+	@Column(name = "id", unique = true, nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	@Column(name = "nome", nullable = false)
+	private String nome;
+
+	@ManyToOne
+    @JoinColumn(name = "id_ruolo")
+	private TipologicaRuoli tipologicaRuoli;
+	
+	@ManyToOne
+    @JoinColumn(name = "id_stato_utente")
+	private TipologicaStatoUtente tipologicaStatoUtente;
+
+	@Column(name = "password", nullable = false)
+	private String password;
+
+	@Column(name = "saldo_iniziale", nullable = false)
+	private Double saldoIniziale;
 	
 	public Long getId() {
 		return id;
@@ -25,22 +51,6 @@ public class Utenti {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public Long getIdRuolo() {
-		return idRuolo;
-	}
-
-	public void setIdRuolo(Long idRuolo) {
-		this.idRuolo = idRuolo;
-	}
-
-	public Long getIdStatoUtente() {
-		return idStatoUtente;
-	}
-
-	public void setIdStatoUtente(Long idStatoUtente) {
-		this.idStatoUtente = idStatoUtente;
 	}
 
 	public String getPassword() {
@@ -59,24 +69,20 @@ public class Utenti {
 		this.saldoIniziale = saldoIniziale;
 	}
 
-	@Id
-	@Column(name = "id", unique = true, nullable = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	public TipologicaRuoli getTipologicaRuoli() {
+		return tipologicaRuoli;
+	}
 
-	@Column(name = "nome", nullable = false)
-	private String nome;
+	public void setTipologicaRuoli(TipologicaRuoli tipologicaRuoli) {
+		this.tipologicaRuoli = tipologicaRuoli;
+	}
 
-	@Column(name = "id_ruolo", nullable = false)
-	private Long idRuolo;
-	
-	@Column(name = "id_stato_utente", nullable = false)
-	private Long idStatoUtente;
+	public TipologicaStatoUtente getTipologicaStatoUtente() {
+		return tipologicaStatoUtente;
+	}
 
-	@Column(name = "password", nullable = false)
-	private String password;
-
-	@Column(name = "saldo_iniziale", nullable = false)
-	private Double saldoIniziale;
+	public void setTipologicaStatoUtente(TipologicaStatoUtente tipologicaStatoUtente) {
+		this.tipologicaStatoUtente = tipologicaStatoUtente;
+	}
 
 }

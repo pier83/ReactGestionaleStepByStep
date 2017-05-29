@@ -5,6 +5,7 @@ import it.germesoft.web_service.business_logic.UtentiBusinessLogic;
 import it.germesoft.web_service.constants.RestURIConstants;
 import it.germesoft.web_service.dto.ResultDTO;
 import it.germesoft.web_service.dto.request.GetUtenteByNomeRequest;
+import it.germesoft.web_service.dto.request.SetUtenteRequest;
 import it.germesoft.web_service.service.AuditWsService;
 import it.germesoft.web_service.service.ListaMovimentiService;
 import it.germesoft.web_service.service.UtentiService;
@@ -93,6 +94,59 @@ public class MainController {
 		logger.info("End getUtentiByNomePost");
 		return new ResponseEntity<ResultDTO>(result, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = RestURIConstants.URL_SET_UTENTE_POST, method = RequestMethod.POST)
+	public ResponseEntity<ResultDTO> setUtentiByNomePost(@RequestBody @Valid SetUtenteRequest request) throws Exception {
+		
+		ResultDTO result = new ResultDTO();
+
+		try {
+			logger.info("Start setUtentiByNomePost");
+			
+			String richiestaJson = Utilities.objectToStringJson(request);
+
+			idAudit = auditWsService.inizializzaAudit("setUtentiByNomePost", RestURIConstants.URL_SET_UTENTE_POST, "POST", richiestaJson);
+			
+			Map<String, Object> map = UtentiBusinessLogic.eseguiBusinessLogicaSetUtente(utentiService, request);
+			
+			result.setMap(map);
+			
+		} catch (Exception e) {
+			auditWsService.salvaErroreAudit(idAudit, e.getMessage());
+			auditWsService.salvaResponseAudit(idAudit, Utilities.resultDtoToStringJson(result));
+			throw e;
+		}
+		auditWsService.salvaResponseAudit(idAudit, Utilities.resultDtoToStringJson(result));
+		logger.info("End getUtentiByNomePost");
+		return new ResponseEntity<ResultDTO>(result, HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(value = RestURIConstants.URL_GET_UTENTI_GET, method = RequestMethod.GET)
+	public ResponseEntity<ResultDTO> getUtentiGet() throws Exception {
+		
+		ResultDTO result = new ResultDTO();
+
+		try {
+			logger.info("Start getUtentiGet");
+			
+			idAudit = auditWsService.inizializzaAudit("getUtentiGet", RestURIConstants.URL_GET_UTENTI_GET, "GET", "");
+			
+			Map<String, Object> map = UtentiBusinessLogic.eseguiBusinessLogicGetUtenti(utentiService);
+			
+			result.setMap(map);
+			
+		} catch (Exception e) {
+			auditWsService.salvaErroreAudit(idAudit, e.getMessage());
+			auditWsService.salvaResponseAudit(idAudit, Utilities.resultDtoToStringJson(result));
+			throw e;
+		}
+		auditWsService.salvaResponseAudit(idAudit, Utilities.resultDtoToStringJson(result));
+		logger.info("End getUtentiGet");
+		return new ResponseEntity<ResultDTO>(result, HttpStatus.OK);
+	}
+	
+	
 
 	
 	@RequestMapping(value = RestURIConstants.URL_GET_SALDO_BY_NOME_GET, method = RequestMethod.GET)

@@ -50,6 +50,10 @@
 		<url-pattern>/ws/getSaldo</url-pattern>
 	</filter-mapping>
 	
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/ws/setUtente</url-pattern>
+	</filter-mapping>
 
 	<!-- GET -->
 	<filter-mapping>
@@ -61,6 +65,10 @@
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/ws/getSaldo/*</url-pattern>
 	</filter-mapping>
+	
+	
+	
+	
 
 	<!-- <filter-mapping> -->
 	<!-- <filter-name>springSecurityFilterChain</filter-name> -->

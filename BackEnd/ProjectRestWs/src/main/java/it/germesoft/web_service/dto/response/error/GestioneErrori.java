@@ -9,6 +9,19 @@ import it.germesoft.web_service.dto.request.GetUtenteByNomeRequest;
 
 public class GestioneErrori {
 	
+	public static void erroreNoDataUtenti(Map<String, Object> map) {
+		ErroreResponse erroreResponse = new ErroreResponse();
+		Map<String, Object>  mapDetail = Maps.newHashMap();
+		mapDetail.put("error", "Data Error");
+		mapDetail.put("cause", "NESSUN UTENTE PRESENTE");
+		erroreResponse.setMessaggioErrore(mapDetail);
+		map.put("response", erroreResponse);
+		ResultDTO result = new ResultDTO();
+		result.setMap(map);
+	}
+	
+	
+	
 	public static void erroreNoDataUtentiIniziaPer(String nome, Map<String, Object> map) {
 		ErroreResponse erroreResponse = new ErroreResponse();
 		Map<String, Object>  mapDetail = Maps.newHashMap();

@@ -9,11 +9,17 @@ public class UtentiResponse {
 
 	private Long idRuolo;
 	
+	private String nomeRuolo;
+	
 	private Long idStatoUtente;
+	
+	private String descrizioneStato;
 
 	private String password;
 
 	private Double saldoIniziale;
+	
+	private String messaggio;
 
 	public Long getId() {
 		return id;
@@ -61,6 +67,30 @@ public class UtentiResponse {
 
 	public void setSaldoIniziale(Double saldoIniziale) {
 		this.saldoIniziale = saldoIniziale;
+	}
+
+	public String getNomeRuolo() {
+		return nomeRuolo;
+	}
+
+	public void setNomeRuolo(String nomeRuolo) {
+		this.nomeRuolo = nomeRuolo;
+	}
+
+	public String getDescrizioneStato() {
+		return descrizioneStato;
+	}
+
+	public void setDescrizioneStato(String descrizioneStato) {
+		this.descrizioneStato = descrizioneStato;
+	}
+
+	public String getMessaggio() {
+		return messaggio;
+	}
+
+	public void setMessaggio(String messaggio) {
+		this.messaggio = messaggio;
 	}
 
 }

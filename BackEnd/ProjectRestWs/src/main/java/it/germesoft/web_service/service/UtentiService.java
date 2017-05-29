@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface UtentiService {
 
-	void saveUtenti(Utenti utenti);
+	Long saveUtenti(String nome, String password, Long idRuolo, Long idStato, Double saldoIniziale);
 
 	List<Utenti> findAllUtenti();
 	

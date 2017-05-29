@@ -92,6 +92,12 @@
 		<security:intercept-url pattern="/**" access="ROLE_USER"/>
 		<security:http-basic/>
 	</security:http>
+	
+	<security:http create-session="stateless" pattern="/ws/setUtente">
+		<security:intercept-url pattern="/**" access="ROLE_USER"/>
+		<security:http-basic/>
+	</security:http>	
+	
 
 	<!--
 	<security:authentication-manager>
