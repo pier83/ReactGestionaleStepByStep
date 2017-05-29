@@ -65,36 +65,36 @@
 		  users-by-username-query=
 		    "SELECT utenti.nome, utenti.password as password, utenti.id_stato_utente FROM utenti WHERE utenti.nome = ?"
 		  authorities-by-username-query=
-		    "select username, role from user_roles_ws where username = ?  " />
+		    "SELECT u.username, t.nome FROM user_roles_ws u INNER JOIN tipologica_ruoli t ON u.id_ruolo = t.id WHERE u.username = ?  " />
 	  </authentication-provider>
 	</authentication-manager>
 
 
 	<!-- GET -->
 	<security:http create-session="stateless" pattern="/ws/getUtente/**">
-		<security:intercept-url pattern="/**" access="ROLE_USER" />
+		<security:intercept-url pattern="/**" access="ROLE_ADMIN" />
 		<security:http-basic />
 	</security:http>
 
 	<security:http create-session="stateless" pattern="/ws/getSaldo/**">
-		<security:intercept-url pattern="/**" access="ROLE_USER" />
+		<security:intercept-url pattern="/**" access="ROLE_ADMIN" />
 		<security:http-basic />
 	</security:http>
 	
 
 	<!-- POST -->
 	<security:http create-session="stateless" pattern="/ws/getUtente">
-		<security:intercept-url pattern="/**" access="ROLE_USER"/>
+		<security:intercept-url pattern="/**" access="ROLE_ADMIN"/>
 		<security:http-basic/>
 	</security:http>
 
 	<security:http create-session="stateless" pattern="/ws/getSaldo">
-		<security:intercept-url pattern="/**" access="ROLE_USER"/>
+		<security:intercept-url pattern="/**" access="ROLE_ADMIN"/>
 		<security:http-basic/>
 	</security:http>
 	
 	<security:http create-session="stateless" pattern="/ws/setUtente">
-		<security:intercept-url pattern="/**" access="ROLE_USER"/>
+		<security:intercept-url pattern="/**" access="ROLE_ADMIN"/>
 		<security:http-basic/>
 	</security:http>	
 	

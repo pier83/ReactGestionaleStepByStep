@@ -1,5 +1,7 @@
 package it.germesoft.web_service.dto.response;
 
+import java.util.List;
+
 
 public class UtentiResponse {
 	
@@ -7,9 +9,13 @@ public class UtentiResponse {
 
 	private String nome;
 
+//	private List<TipologicaRuoliDTO> listaRuoliDTO;
+	
 	private Long idRuolo;
 	
 	private String nomeRuolo;
+	
+	private String descrizioneRuolo;
 	
 	private Long idStatoUtente;
 	
@@ -19,7 +25,7 @@ public class UtentiResponse {
 
 	private Double saldoIniziale;
 	
-	private String messaggio;
+	private String esitoInserimento;
 
 	public Long getId() {
 		return id;
@@ -35,14 +41,6 @@ public class UtentiResponse {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public Long getIdRuolo() {
-		return idRuolo;
-	}
-
-	public void setIdRuolo(Long idRuolo) {
-		this.idRuolo = idRuolo;
 	}
 
 	public Long getIdStatoUtente() {
@@ -69,14 +67,6 @@ public class UtentiResponse {
 		this.saldoIniziale = saldoIniziale;
 	}
 
-	public String getNomeRuolo() {
-		return nomeRuolo;
-	}
-
-	public void setNomeRuolo(String nomeRuolo) {
-		this.nomeRuolo = nomeRuolo;
-	}
-
 	public String getDescrizioneStato() {
 		return descrizioneStato;
 	}
@@ -85,12 +75,44 @@ public class UtentiResponse {
 		this.descrizioneStato = descrizioneStato;
 	}
 
-	public String getMessaggio() {
-		return messaggio;
+//	public List<TipologicaRuoliDTO> getListaRuoliDTO() {
+//		return listaRuoliDTO;
+//	}
+//
+//	public void setListaRuoliDTO(List<TipologicaRuoliDTO> listaRuoliDTO) {
+//		this.listaRuoliDTO = listaRuoliDTO;
+//	}
+
+	public Long getIdRuolo() {
+		return idRuolo;
 	}
 
-	public void setMessaggio(String messaggio) {
-		this.messaggio = messaggio;
+	public void setIdRuolo(Long idRuolo) {
+		this.idRuolo = idRuolo;
+	}
+
+	public String getNomeRuolo() {
+		return nomeRuolo;
+	}
+
+	public void setNomeRuolo(String nomeRuolo) {
+		this.nomeRuolo = nomeRuolo;
+	}
+
+	public String getDescrizioneRuolo() {
+		return descrizioneRuolo;
+	}
+
+	public void setDescrizioneRuolo(String descrizioneRuolo) {
+		this.descrizioneRuolo = descrizioneRuolo;
+	}
+
+	public String getEsitoInserimento() {
+		return esitoInserimento;
+	}
+
+	public void setEsitoInserimento(String esitoInserimento) {
+		this.esitoInserimento = esitoInserimento;
 	}
 
 }

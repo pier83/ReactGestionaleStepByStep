@@ -6,8 +6,11 @@ import it.germesoft.web_service.constants.RestURIConstants;
 import it.germesoft.web_service.dto.ResultDTO;
 import it.germesoft.web_service.dto.request.GetUtenteByNomeRequest;
 import it.germesoft.web_service.dto.request.SetUtenteRequest;
+import it.germesoft.web_service.model.UserRolesWs;
 import it.germesoft.web_service.service.AuditWsService;
 import it.germesoft.web_service.service.ListaMovimentiService;
+import it.germesoft.web_service.service.TipologicaRuoliService;
+import it.germesoft.web_service.service.UserRolesWsService;
 import it.germesoft.web_service.service.UtentiService;
 import it.germesoft.web_service.utilities.Utilities;
 
@@ -39,13 +42,17 @@ public class MainController {
 	ListaMovimentiService listaMovimentiService;
 	
 	@Autowired
+	TipologicaRuoliService tipologicaRuoliService;
+	
+	@Autowired
+	UserRolesWsService userRolesWsService;
+	
+	@Autowired
 	AuditWsService auditWsService;
 
 	@RequestMapping(value = RestURIConstants.URL_GET_UTENTE_BY_NOME_GET, method = RequestMethod.GET)
 	public ResponseEntity<ResultDTO> getUtentiByNomeGet(@PathVariable("nome") String nome) throws Exception {
-		
 		ResultDTO result = new ResultDTO();
-
 		try {
 			logger.info("Start getUtentiByNomeGet");
 			
@@ -53,10 +60,9 @@ public class MainController {
 
 			idAudit = auditWsService.inizializzaAudit("getUtentiByNomeGet", RestURIConstants.URL_GET_UTENTE_BY_NOME_GET, "GET", richiestaJson);
 			
-			Map<String, Object> map = UtentiBusinessLogic.eseguiBusinessLogicGetUtentiByNome(utentiService, nome);
+			Map<String, Object> map = UtentiBusinessLogic.eseguiBusinessLogicGetUtentiByNome(utentiService, tipologicaRuoliService, userRolesWsService,nome);
 			
 			result.setMap(map);
-			
 			
 		} catch (Exception e) {
 			auditWsService.salvaErroreAudit(idAudit, e.getMessage());
@@ -71,9 +77,7 @@ public class MainController {
 	
 	@RequestMapping(value = RestURIConstants.URL_GET_UTENTE_BY_NOME_POST, method = RequestMethod.POST)
 	public ResponseEntity<ResultDTO> getUtentiByNomePost(@RequestBody @Valid GetUtenteByNomeRequest request) throws Exception {
-		
 		ResultDTO result = new ResultDTO();
-
 		try {
 			logger.info("Start getUtentiByNomePost");
 			
@@ -81,7 +85,7 @@ public class MainController {
 
 			idAudit = auditWsService.inizializzaAudit("getUtentiByNomePost", RestURIConstants.URL_GET_UTENTE_BY_NOME_POST, "POST", richiestaJson);
 			
-			Map<String, Object> map = UtentiBusinessLogic.eseguiBusinessLogicGetUtentiByNome(utentiService, request.getNome());
+			Map<String, Object> map = UtentiBusinessLogic.eseguiBusinessLogicGetUtentiByNome(utentiService, tipologicaRuoliService, userRolesWsService, request.getNome());
 			
 			result.setMap(map);
 			
@@ -95,19 +99,18 @@ public class MainController {
 		return new ResponseEntity<ResultDTO>(result, HttpStatus.OK);
 	}
 	
+	
 	@RequestMapping(value = RestURIConstants.URL_SET_UTENTE_POST, method = RequestMethod.POST)
-	public ResponseEntity<ResultDTO> setUtentiByNomePost(@RequestBody @Valid SetUtenteRequest request) throws Exception {
-		
+	public ResponseEntity<ResultDTO> setUtentePost(@RequestBody @Valid SetUtenteRequest request) throws Exception {
 		ResultDTO result = new ResultDTO();
-
 		try {
-			logger.info("Start setUtentiByNomePost");
+			logger.info("Start setUtentePost");
 			
 			String richiestaJson = Utilities.objectToStringJson(request);
 
-			idAudit = auditWsService.inizializzaAudit("setUtentiByNomePost", RestURIConstants.URL_SET_UTENTE_POST, "POST", richiestaJson);
+			idAudit = auditWsService.inizializzaAudit("setUtentePost", RestURIConstants.URL_SET_UTENTE_POST, "POST", richiestaJson);
 			
-			Map<String, Object> map = UtentiBusinessLogic.eseguiBusinessLogicaSetUtente(utentiService, request);
+			Map<String, Object> map = UtentiBusinessLogic.eseguiBusinessLogicaSetUtente(utentiService, tipologicaRuoliService, request);
 			
 			result.setMap(map);
 			
@@ -117,16 +120,14 @@ public class MainController {
 			throw e;
 		}
 		auditWsService.salvaResponseAudit(idAudit, Utilities.resultDtoToStringJson(result));
-		logger.info("End getUtentiByNomePost");
+		logger.info("End setUtentePost");
 		return new ResponseEntity<ResultDTO>(result, HttpStatus.OK);
 	}
 	
 	
 	@RequestMapping(value = RestURIConstants.URL_GET_UTENTI_GET, method = RequestMethod.GET)
 	public ResponseEntity<ResultDTO> getUtentiGet() throws Exception {
-		
 		ResultDTO result = new ResultDTO();
-
 		try {
 			logger.info("Start getUtentiGet");
 			
@@ -147,13 +148,9 @@ public class MainController {
 	}
 	
 	
-
-	
 	@RequestMapping(value = RestURIConstants.URL_GET_SALDO_BY_NOME_GET, method = RequestMethod.GET)
 	public ResponseEntity<ResultDTO> getSaldoByNomeGet(@PathVariable("nome") String nome) throws Exception {
-		
 		ResultDTO result = new ResultDTO();
-
 		try {
 			logger.info("Start getSaldoByNomeGet");
 			

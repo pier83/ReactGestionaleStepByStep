@@ -24,10 +24,6 @@ public class Utenti {
 	private String nome;
 
 	@ManyToOne
-    @JoinColumn(name = "id_ruolo")
-	private TipologicaRuoli tipologicaRuoli;
-	
-	@ManyToOne
     @JoinColumn(name = "id_stato_utente")
 	private TipologicaStatoUtente tipologicaStatoUtente;
 
@@ -67,14 +63,6 @@ public class Utenti {
 
 	public void setSaldoIniziale(Double saldoIniziale) {
 		this.saldoIniziale = saldoIniziale;
-	}
-
-	public TipologicaRuoli getTipologicaRuoli() {
-		return tipologicaRuoli;
-	}
-
-	public void setTipologicaRuoli(TipologicaRuoli tipologicaRuoli) {
-		this.tipologicaRuoli = tipologicaRuoli;
 	}
 
 	public TipologicaStatoUtente getTipologicaStatoUtente() {

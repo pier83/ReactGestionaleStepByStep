@@ -4,7 +4,10 @@ import it.germesoft.web_service.dto.request.SetUtenteRequest;
 import it.germesoft.web_service.dto.response.UtentiResponse;
 import it.germesoft.web_service.dto.response.error.GestioneErrori;
 import it.germesoft.web_service.model.TipologicaRuoli;
+import it.germesoft.web_service.model.UserRolesWs;
 import it.germesoft.web_service.model.Utenti;
+import it.germesoft.web_service.service.TipologicaRuoliService;
+import it.germesoft.web_service.service.UserRolesWsService;
 import it.germesoft.web_service.service.UtentiService;
 
 import java.util.ArrayList;
@@ -17,7 +20,8 @@ import com.google.common.collect.Maps;
 
 public class UtentiBusinessLogic {
 	
-	public static Map<String, Object> eseguiBusinessLogicGetUtentiByNome(UtentiService utentiService,String nome) {
+	public static Map<String, Object> eseguiBusinessLogicGetUtentiByNome(UtentiService utentiService,TipologicaRuoliService tipologicaRuoliService,
+			UserRolesWsService userRolesWsService, String nome) {
 		List<Utenti> listaUtenti = utentiService.nomeIniziaPer(nome);
 		
 		Map<String, Object>  map = Maps.newHashMap();
@@ -26,7 +30,23 @@ public class UtentiBusinessLogic {
 		if(listaUtenti.size() != 0){
 			for (Utenti utenti : listaUtenti) {
 				UtentiResponse utentiResponse = new UtentiResponse();
-				BeanUtils.copyProperties(utenti, utentiResponse);
+				List<UserRolesWs> findByUsername = userRolesWsService.findByUsername(utenti.getNome());
+				TipologicaRuoli tipologicaRuoli = findByUsername.get(0).getTipologicaRuoli();
+				
+				utentiResponse.setDescrizioneRuolo(tipologicaRuoli.getDescrizione());
+				utentiResponse.setNomeRuolo(tipologicaRuoli.getNome());
+				utentiResponse.setIdRuolo(tipologicaRuoli.getId());
+				
+				//TODO: fare lo stato service
+//				utentiResponse.setIdStatoUtente(idStatoUtente);
+//				utentiResponse.setDescrizioneStato(descrizioneStato);
+				
+				
+				utentiResponse.setEsitoInserimento("");
+				utentiResponse.setNome(utenti.getNome());
+				utentiResponse.setPassword(utenti.getPassword());
+				utentiResponse.setSaldoIniziale(utenti.getSaldoIniziale());
+				utentiResponse.setId(utenti.getId());
 				response.add(utentiResponse);
 			}
 			map.put("response", response);
@@ -59,7 +79,7 @@ public class UtentiBusinessLogic {
 	}
 	
 	
-	public static Map<String, Object> eseguiBusinessLogicaSetUtente(UtentiService utentiService, SetUtenteRequest request) {
+	public static Map<String, Object> eseguiBusinessLogicaSetUtente(UtentiService utentiService,TipologicaRuoliService tipologicaRuoliService, SetUtenteRequest request) {
 		
 		Long idUser = utentiService.saveUtenti(request.getUsername(), request.getPassword(), request.getIdRuolo(), request.getIdStato(), request.getSaldoIniziale());
 		
@@ -70,12 +90,14 @@ public class UtentiBusinessLogic {
 			response.setNome(user.getNome());
 			response.setPassword(user.getPassword());
 			response.setSaldoIniziale(user.getSaldoIniziale());
-			response.setIdRuolo(user.getTipologicaRuoli().getId());
-			response.setNomeRuolo(user.getTipologicaRuoli().getNome());
+			TipologicaRuoli ruolo = tipologicaRuoliService.findById(request.getIdRuolo());
+			response.setIdRuolo(request.getIdRuolo());
+			response.setNomeRuolo(ruolo.getNome());
+			response.setDescrizioneRuolo(ruolo.getDescrizione());
 			response.setIdStatoUtente(user.getTipologicaStatoUtente().getId());
 			response.setDescrizioneStato(user.getTipologicaStatoUtente().getDescrizione());
 			response.setId(user.getId());
-			response.setMessaggio("Utente "+user.getNome()+" inserito correttamente.");
+			response.setEsitoInserimento("Utente "+user.getNome()+" inserito correttamente.");
 		}
 		else{
 			GestioneErrori.erroreNoDataUtenti(map);
