@@ -79,7 +79,7 @@ public class UtentiBusinessLogic {
 	}
 	
 	
-	public static Map<String, Object> eseguiBusinessLogicaSetUtente(UtentiService utentiService,TipologicaRuoliService tipologicaRuoliService, SetUtenteRequest request) {
+	public static Map<String, Object> eseguiBusinessLogicaSetUtente(UtentiService utentiService,TipologicaRuoliService tipologicaRuoliService, SetUtenteRequest request) throws Exception {
 		
 		Long idUser = utentiService.saveUtenti(request.getUsername(), request.getPassword(), request.getIdRuolo(), request.getIdStato(), request.getSaldoIniziale());
 		

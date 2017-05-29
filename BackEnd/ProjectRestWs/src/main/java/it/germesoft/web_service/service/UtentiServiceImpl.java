@@ -34,22 +34,26 @@ public class UtentiServiceImpl implements UtentiService{
 	private UserRolesWsDao userRolesWsDao;
 	
 	
-	public Long saveUtenti(String nome, String password, Long idRuolo, Long idStato, Double saldoIniziale) {
-		Utenti utenti = new Utenti();
-		utenti.setNome(nome);
-		utenti.setPassword(password);
-//		for (Long id : idRuoliS) {
-		UserRolesWs userRolesWs = new UserRolesWs();
-		TipologicaRuoli ruoli = tipologicaRuoliDao.findById(idRuolo);
-		userRolesWs.setTipologicaRuoli(ruoli);
-		userRolesWs.setUsername(nome);
-		userRolesWsDao.saveUserRolesWs(userRolesWs);
-//		}
-		TipologicaStatoUtente stato = tipologicaStatoUtenteDao.findById(idStato);
-		utenti.setTipologicaStatoUtente(stato);
-		utenti.setSaldoIniziale(saldoIniziale);
-		dao.saveUtenti(utenti);
-		return utenti.getId();
+	public Long saveUtenti(String nome, String password, Long idRuolo, Long idStato, Double saldoIniziale) throws Exception {
+		Long idUtente = null;
+		try {
+			Utenti utenti = new Utenti();
+			utenti.setNome(nome);
+			utenti.setPassword(password);
+			UserRolesWs userRolesWs = new UserRolesWs();
+			TipologicaRuoli ruoli = tipologicaRuoliDao.findById(idRuolo);
+			userRolesWs.setTipologicaRuoli(ruoli);
+			userRolesWs.setUsername(nome);
+			userRolesWsDao.saveUserRolesWs(userRolesWs);
+			TipologicaStatoUtente stato = tipologicaStatoUtenteDao.findById(idStato);
+			utenti.setTipologicaStatoUtente(stato);
+			utenti.setSaldoIniziale(saldoIniziale);
+			dao.saveUtenti(utenti);
+			idUtente =  utenti.getId();
+		} catch (Exception e) {
+			throw e;
+		}
+		return idUtente;
 	}
 
 	public List<Utenti> findAllUtenti() {

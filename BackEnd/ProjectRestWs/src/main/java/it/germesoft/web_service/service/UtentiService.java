@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface UtentiService {
 
-	Long saveUtenti(String nome, String password, Long idRuolo, Long idStato, Double saldoIniziale);
+	Long saveUtenti(String nome, String password, Long idRuolo, Long idStato, Double saldoIniziale) throws Exception;
 
 	List<Utenti> findAllUtenti();
 	
