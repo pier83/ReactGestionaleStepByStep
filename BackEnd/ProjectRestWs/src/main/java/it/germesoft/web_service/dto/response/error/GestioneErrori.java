@@ -19,7 +19,18 @@ public class GestioneErrori {
 		ResultDTO result = new ResultDTO();
 		result.setMap(map);
 	}
+
 	
+	public static void erroreUtenteGiaPresente(Map<String, Object> map) {
+		ErroreResponse erroreResponse = new ErroreResponse();
+		Map<String, Object>  mapDetail = Maps.newHashMap();
+		mapDetail.put("error", "Data Error");
+		mapDetail.put("cause", "UTENTE GIA' PRESENTE IN ANGRAFICA");
+		erroreResponse.setMessaggioErrore(mapDetail);
+		map.put("response", erroreResponse);
+		ResultDTO result = new ResultDTO();
+		result.setMap(map);
+	}
 	
 	
 	public static void erroreNoDataUtentiIniziaPer(String nome, Map<String, Object> map) {

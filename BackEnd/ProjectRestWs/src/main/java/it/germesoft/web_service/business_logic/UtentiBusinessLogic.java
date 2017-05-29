@@ -101,16 +101,16 @@ public class UtentiBusinessLogic {
 				response.setDescrizioneStato(user.getTipologicaStatoUtente().getDescrizione());
 				response.setId(user.getId());
 				response.setEsitoInserimento("Utente "+user.getNome()+" inserito correttamente.");
+				map.put("response", response);
 			}
 			else{
 				GestioneErrori.erroreNoDataUtenti(map);
 			}
 		}
 		else{
-			response.setEsitoInserimento("Utente gia' presente in anagrafica");
+			GestioneErrori.erroreUtenteGiaPresente(map);
 		}
 		
-		map.put("response", response);
 		return map;
 	}
 
